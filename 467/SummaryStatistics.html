@@ -11802,7 +11802,7 @@ x_{n1} & ... &  x_{np}  \\
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="2.-Create-X-matrix">2. Create X matrix<a class="anchor-link" href="#2.-Create-X-matrix">&#182;</a></h1><p>We are going to generate a random X matrix. All its columns normally distributed.</p>
-$$ n=100, \space p=15 \space $$$$ x_{jk} \sim N(\mu=k-1, \sigma);\space where \space \sigma \sim Uniform(1,10) $$
+$$ n=1000, \space p=300 \space $$$$ x_{jk} \sim N(\mu=k-1, \sigma);\space where \space \sigma \sim Uniform(1,10) $$
 </div>
 </div>
 </div>
@@ -11943,7 +11943,7 @@ time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  0.004   0.008   0.011 
+  0.008   0.004   0.012 
  [1] -0.04  0.81  1.89  3.06  4.07  5.06  6.11  7.00  7.80  9.09
 </pre>
 </div>
@@ -11978,7 +11978,7 @@ time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span clas
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  0.004   0.000   0.004 
+  0.004   0.000   0.006 
  [1] -0.04  0.81  1.89  3.06  4.07  5.06  6.11  7.00  7.80  9.09
 </pre>
 </div>
@@ -12072,7 +12072,7 @@ time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  4.204   0.004   4.212 
+  4.868   0.008   4.875 
        [,1]  [,2]  [,3]  [,4]  [,5]   [,6]  [,7]  [,8]  [,9] [,10]
  [1,] 89.12  0.70  0.47 -0.50 -0.07   0.68  1.11 -0.21  0.13  0.02
  [2,]  0.70  2.54  0.05  0.02  0.34   0.26  0.07  0.09  0.14 -0.03
@@ -12117,7 +12117,7 @@ time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span clas
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  0.208   0.000   0.207 
+  0.208   0.000   0.211 
        [,1]  [,2]  [,3]  [,4]  [,5]   [,6]  [,7]  [,8]  [,9] [,10]
  [1,] 89.06  0.70  0.47 -0.50 -0.07   0.68  1.11 -0.21  0.13  0.02
  [2,]  0.70  2.54  0.05  0.02  0.33   0.26  0.07  0.09  0.14 -0.03
@@ -12146,6 +12146,92 @@ time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span clas
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="5.-Correlation-Matrix">5. Correlation Matrix<a class="anchor-link" href="#5.-Correlation-Matrix">&#182;</a></h1><p>Let's now convert covariance matrix into correlation matrix</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>in univariate case;</p>
+$$ \rho_{12} = \frac{Cov(X_1,X_2)}{\sqrt{Var(X_1)}\sqrt{Var(X_2)}} $$<p>but in know, multivariate case. We could rewrite above formula in amtrix form;</p>
+$$ \rho = diag(S)^{-1/2} \space S \space diag(S)^{-1/2} \space where;$$$$S\space is\space variance-covariance \space matrix$$<p></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>S <span class="o">=</span> vars1
+V_si <span class="o">=</span> <span class="kp">diag</span><span class="p">(</span><span class="kp">diag</span><span class="p">(</span>S<span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="m">-1</span><span class="o">/</span><span class="m">2</span><span class="p">))</span> <span class="c1">#inverse of square rooted diagonal matrix*</span>
+P <span class="o">=</span> V_si <span class="o">%*%</span> S <span class="o">%*%</span> V_si
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>*<i>diag</i> function accepts both vector and matrix inputs. If input is a vector. It returns a diagonal matrix where the diagonals are given input. If input is a matrix than it simply returns the diagonal of the matrix.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>P<span class="p">[</span><span class="m">291</span><span class="o">:</span><span class="m">300</span><span class="p">,</span> <span class="m">291</span><span class="o">:</span><span class="m">300</span><span class="p">],</span> <span class="m">2</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>       [,1] [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10]
+ [1,]  1.00 0.05  0.03 -0.02  0.00  0.01  0.03  0.00  0.01  0.00
+ [2,]  0.05 1.00  0.02  0.00  0.03  0.02  0.01  0.01  0.03  0.00
+ [3,]  0.03 0.02  1.00 -0.02  0.03  0.00 -0.01  0.02  0.01  0.00
+ [4,] -0.02 0.00 -0.02  1.00 -0.03  0.01  0.02 -0.02  0.02 -0.02
+ [5,]  0.00 0.03  0.03 -0.03  1.00 -0.05  0.04  0.00  0.05 -0.03
+ [6,]  0.01 0.02  0.00  0.01 -0.05  1.00  0.00  0.01 -0.01 -0.01
+ [7,]  0.03 0.01 -0.01  0.02  0.04  0.00  1.00  0.03  0.01  0.01
+ [8,]  0.00 0.01  0.02 -0.02  0.00  0.01  0.03  1.00  0.01  0.01
+ [9,]  0.01 0.03  0.01  0.02  0.05 -0.01  0.01  0.01  1.00 -0.02
+[10,]  0.00 0.00  0.00 -0.02 -0.03 -0.01  0.01  0.01 -0.02  1.00
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     </div>
   </div>
