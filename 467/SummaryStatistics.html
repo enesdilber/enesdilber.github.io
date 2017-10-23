@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>spectraldecomposition</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>SummaryStatistics</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11778,8 +11778,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.-Description">1. Description<a class="anchor-link" href="#1.-Description">&#182;</a></h1><h3 id="Course-STAT467-Multivariate-Analysis">Course <span style="color:blue">STAT467 Multivariate Analysis</span><a class="anchor-link" href="#Course-STAT467-Multivariate-Analysis">&#182;</a></h3><h4 id="Semester-Fall-2017">Semester <span style="color:blue">Fall 2017</span><a class="anchor-link" href="#Semester-Fall-2017">&#182;</a></h4><h4 id="Material-Power-of-a-Matrix-by-Spectral-Decomposition">Material <span style="color:blue">Power of a Matrix by Spectral Decomposition</span><a class="anchor-link" href="#Material-Power-of-a-Matrix-by-Spectral-Decomposition">&#182;</a></h4><h4 id="Notebook-Language--R">Notebook Language  <span style="color:blue">R</span><a class="anchor-link" href="#Notebook-Language--R">&#182;</a></h4><p>We know R has eigen function in its base library, but as a linear algebra practice, lets write a function that calculates power of a matrix by the help of spectral decomposition factorization.</p>
-
+<h1 id="1.-Description">1. Description<a class="anchor-link" href="#1.-Description">&#182;</a></h1><h3 id="Course-STAT467-Multivariate-Analysis">Course <span style="color:blue">STAT467 Multivariate Analysis</span><a class="anchor-link" href="#Course-STAT467-Multivariate-Analysis">&#182;</a></h3><h4 id="Semester-Fall-2017">Semester <span style="color:blue">Fall 2017</span><a class="anchor-link" href="#Semester-Fall-2017">&#182;</a></h4><h4 id="Content--Summary-statistics-in-matrix-form">Content  <span style="color:blue">Summary statistics in matrix form</span><a class="anchor-link" href="#Content--Summary-statistics-in-matrix-form">&#182;</a></h4><h4 id="Notebook-Language--R">Notebook Language  <span style="color:blue">R</span><a class="anchor-link" href="#Notebook-Language--R">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -11788,18 +11787,38 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><i>Loading dependencies:</i></p>
-
+<p>X is <i>n x p</i> matrix</p>
+$$ X= \left[ {\begin{array}{ccc}
+x_{11} &  ... & x_{1p} \\
+... &  x_{jk} & ... \\
+x_{n1} & ... &  x_{np}  \\
+\end{array} } \right] $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="2.-Create-X-matrix">2. Create X matrix<a class="anchor-link" href="#2.-Create-X-matrix">&#182;</a></h1><p>We are going to generate a random X matrix. All its columns normally distributed.</p>
+$$ n=100, \space p=15 \space $$$$ x_{jk} \sim N(\mu=k-1, \sigma);\space where \space \sigma \sim Uniform(1,10) $$
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#install.packages(&quot;rootSolve&quot;)</span>
-<span class="kn">library</span><span class="p">(</span>rootSolve<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="kp">set.seed</span><span class="p">(</span><span class="m">108</span><span class="p">)</span>
+
+n <span class="o">=</span> <span class="m">1500</span>
+p <span class="o">=</span> <span class="m">300</span>
+X <span class="o">=</span> <span class="kt">matrix</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> n<span class="p">,</span> p<span class="p">)</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>p<span class="p">)</span> X<span class="p">[,</span>i<span class="p">]</span> <span class="o">=</span> rnorm<span class="p">(</span>n<span class="p">,</span> <span class="p">(</span>i<span class="m">-1</span><span class="p">),</span> runif<span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">10</span><span class="p">))</span>
+
+<span class="kp">head</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>X<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">],</span> <span class="m">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11813,22 +11832,21 @@ div#notebook {
 <div class="output_area">
 <div class="prompt"></div>
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Installing package into &#39;/home/nbcommon/R&#39;
-(as &#39;lib&#39; is unspecified)
-</pre>
-</div>
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<tbody>
+	<tr><td> -1.24</td><td>-2.35 </td><td>-0.27 </td><td>-11.84</td><td> 4.34 </td><td>5.43  </td><td> 8.24 </td><td> 7.86 </td><td> 9.01 </td><td>13.86 </td></tr>
+	<tr><td>  2.16</td><td> 1.43 </td><td>-0.78 </td><td>  2.78</td><td>-1.97 </td><td>5.08  </td><td> 2.67 </td><td> 2.33 </td><td>12.03 </td><td>26.15 </td></tr>
+	<tr><td>-10.15</td><td> 3.86 </td><td> 2.39 </td><td> -0.09</td><td> 7.98 </td><td>5.06  </td><td>14.48 </td><td> 4.60 </td><td> 3.91 </td><td>-4.10 </td></tr>
+	<tr><td> -3.71</td><td> 2.56 </td><td> 0.17 </td><td>  1.77</td><td> 4.15 </td><td>3.12  </td><td> 7.42 </td><td>14.42 </td><td> 5.47 </td><td>13.22 </td></tr>
+	<tr><td> -0.34</td><td> 3.90 </td><td> 0.90 </td><td>  3.31</td><td> 9.09 </td><td>3.50  </td><td> 7.37 </td><td>-4.44 </td><td> 1.54 </td><td>22.65 </td></tr>
+	<tr><td> -1.79</td><td> 2.44 </td><td> 5.15 </td><td> -0.53</td><td>-3.23 </td><td>4.83  </td><td>17.83 </td><td> 0.28 </td><td> 8.02 </td><td>-1.22 </td></tr>
+</tbody>
+</table>
+
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-The downloaded source packages are in
-	&#39;/tmp/RtmpMDPUB2/downloaded_packages&#39;
-</pre>
-</div>
 </div>
 
 </div>
@@ -11840,22 +11858,58 @@ The downloaded source packages are in
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.-Eigenvalue-calculation">2. Eigenvalue calculation<a class="anchor-link" href="#2.-Eigenvalue-calculation">&#182;</a></h1><p>Here is get_eigen_value function. I will use the advantage of closure functions in R. Simply, get_eigen_value(Matrix)(x) is a closure type function. First argument is a matrix and second argument is x. Since x is a placeholder for lambda, When we want to find the roots of equation we simply vectorize get_eigen_value(Matrix) function and then find the roots.</p>
+<h1 id="3.-Column-Means">3. Column Means<a class="anchor-link" href="#3.-Column-Means">&#182;</a></h1><p>R could handle column means by built-in <i>colMeans</i> function. But now, we are going to implement it with matrix multiplication. Also, i will compare its performance with a column mean calculator that uses for loop.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$ \overline{x}= \left[ {\begin{array}{c}
+\bar{x_1}\\
+... \\
+\bar{x_p}\\
+\end{array} } \right] $$<p>We could obtain it with:</p>
+$$ \overline{x}= \frac{1}{n} X^T 1_n $$<p>or</p>
+$$ \overline{x}= \frac{1}{n} \space 
+\left[ {\begin{array}{ccc}
+x_{11} &  ... & x_{1n} \\
+... &  x_{jk} & ... \\
+x_{p1} & ... &  x_{pn}  \\
+\end{array} } \right]_{p x n} \space 
+\left[ {\begin{array}{c}
+1\\
+... \\
+1\\
+\end{array} } \right]_{n x 1} $$
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>get_eigen_value <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>M<span class="p">){</span>
-  
-   eig_calc <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
-    B <span class="o">=</span> <span class="kp">diag</span><span class="p">(</span><span class="kp">rep</span><span class="p">(</span>x<span class="p">,</span> <span class="p">(</span><span class="kp">dim</span><span class="p">(</span>M<span class="p">)[</span><span class="m">1</span><span class="p">])))</span>
-    <span class="kp">det</span><span class="p">((</span>M<span class="o">-</span>B<span class="p">))</span>
-   <span class="p">}</span>
+<div class=" highlight hl-r"><pre><span></span>colMeans_loop <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
+    <span class="c1">#column means by for loop</span>
+    p <span class="o">=</span> <span class="kp">dim</span><span class="p">(</span>x<span class="p">)[</span><span class="m">2</span><span class="p">]</span>
+    m <span class="o">=</span> <span class="kt">numeric</span><span class="p">(</span>p<span class="p">)</span>
+    
+    <span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>p<span class="p">){</span>
+        m<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>x<span class="p">[,</span>i<span class="p">])</span>
+    <span class="p">}</span>
+    
+    <span class="kr">return</span><span class="p">(</span>m<span class="p">)</span>
+<span class="p">}</span>
+
+colMeans_matrix <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
+    <span class="c1">#column means by matrix multiplication</span>
+    n  <span class="o">=</span> <span class="kp">dim</span><span class="p">(</span>x<span class="p">)[</span><span class="m">1</span><span class="p">]</span>
+    
+    <span class="kr">return</span><span class="p">((</span><span class="m">1</span><span class="o">/</span>n<span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kp">t</span><span class="p">(</span>x<span class="p">)</span><span class="o">%*%</span><span class="kt">matrix</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> n<span class="p">,</span> <span class="m">1</span><span class="p">)))</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -11866,62 +11920,14 @@ The downloaded source packages are in
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#An example matrix</span>
-A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">),</span>
-          <span class="kt">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span>
-          <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><i>We need to vectorize the function because uniroot.all needs vectorized functions to solve equations.</i></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>f <span class="o">=</span> <span class="kp">Vectorize</span><span class="p">(</span>get_eigen_value<span class="p">(</span>A<span class="p">))</span> <span class="c1">#vectorization for uniroot function</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>eigenValue <span class="o">=</span> uniroot.all<span class="p">(</span>f<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span> <span class="m">10</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span>eigenValue<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span>time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span>
+means1 <span class="o">=</span> colMeans_loop<span class="p">(</span>X<span class="p">)</span>
+time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span> <span class="o">-</span> time_for
+<span class="kp">print</span><span class="p">(</span>time_for<span class="p">)</span>
+<span class="kp">print</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>means1<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">],</span> <span class="m">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11936,7 +11942,44 @@ A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[1] -2.000000 -0.701569  5.701566
+<pre>   user  system elapsed 
+  0.012   0.000   0.011 
+ [1] -0.04  0.81  1.89  3.06  4.07  5.06  6.11  7.00  7.80  9.09
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span>
+means2 <span class="o">=</span> colMeans_matrix<span class="p">(</span>X<span class="p">)</span>
+time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span> <span class="o">-</span> time_matrix
+<span class="kp">print</span><span class="p">(</span>time_matrix<span class="p">)</span>
+<span class="kp">print</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>means2<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">],</span> <span class="m">2</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>   user  system elapsed 
+  0.004   0.000   0.004 
+ [1] -0.04  0.81  1.89  3.06  4.07  5.06  6.11  7.00  7.80  9.09
 </pre>
 </div>
 </div>
@@ -11950,242 +11993,52 @@ A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="3.-Eigenvector-calculation">3. Eigenvector calculation<a class="anchor-link" href="#3.-Eigenvector-calculation">&#182;</a></h1><p>Now i will use multiroot function to find eigenvectors. Because now, we need to solve system of equations for finding eigenvectors.</p>
+<p>Time difference is not much. The time gap would be wider with larger matrices.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>get_eigen_vector <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>lambda<span class="p">){</span>
-  
-  eigen_solver <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
-    A<span class="o">%*%</span>x<span class="o">-</span>lambda<span class="o">*</span>x
-  <span class="p">}</span>
-  
-  initial <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="kp">dim</span><span class="p">(</span>A<span class="p">)[</span><span class="m">1</span><span class="p">])</span> <span class="c1">#starting point for root solver</span>
-  
-  ev <span class="o">=</span> multiroot<span class="p">(</span>eigen_solver<span class="p">,</span> initial<span class="p">)</span><span class="o">$</span>root 
-  ev <span class="o">=</span> <span class="kp">round</span><span class="p">(</span>ev<span class="o">/</span><span class="kp">sqrt</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>ev<span class="o">^</span><span class="m">2</span><span class="p">)),</span> <span class="m">4</span><span class="p">)</span> <span class="c1">#standardization</span>
-  
-<span class="p">}</span>
-
-eigenVector <span class="o">=</span> <span class="kp">cbind</span><span class="p">(</span><span class="kp">sapply</span><span class="p">(</span>eigenValue<span class="p">,</span> get_eigen_vector<span class="p">))</span> <span class="c1">#we are applying eigenvector finder for every eigenvalue</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="4.-Covariance-Matrix">4. Covariance Matrix<a class="anchor-link" href="#4.-Covariance-Matrix">&#182;</a></h1><p>This is a more <i>trickier</i> than the means. I will demostrate it with univariate variance formula.</p>
+<p>From basic statistics courses, we know that empirical variance formula could be written in this form:</p>
+$$ S_n = \frac{1}{n} \biggl(\sum x_i^2 - \frac{(\sum x_i)^2}{n}\biggr) \tag{1} $$$$ \sum x_i^2 = X^TX  $$$$ \sum x_i = X^T1_n  $$<p>By using this notations we could rewrite 1<sup>st</sup> equation in matrix form:</p>
+$$ S_n = \frac{1}{n} \bigl(X^TX-\frac{1}{n}X^T1_n1_n^TX\bigr) \tag{2} $$<p>Now let's implement it in R! Again, i will compare its performance with looped version.</p>
 
 </div>
 </div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>eigenVector
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<tbody>
-	<tr><td> 0.7071</td><td> 0.3645</td><td>0.6059 </td></tr>
-	<tr><td> 0.0000</td><td>-0.8569</td><td>0.5155 </td></tr>
-	<tr><td>-0.7071</td><td> 0.3645</td><td>0.6059 </td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="4.-Finding-power-of-a-matrix-by-spectral-decomposition">4. Finding power of a matrix by spectral decomposition<a class="anchor-link" href="#4.-Finding-power-of-a-matrix-by-spectral-decomposition">&#182;</a></h1><p>Again i will use closures. Because in this way, i could manipulate my function inputs, easliy.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let A be a square n x n matrix:</p>
-$$ A^k = \sum_{i=1}^{p} \lambda_j e_j e_j^T  = \Gamma \Lambda^k \Gamma^T $$<p>where;</p>
-$$ eigenvalues = \Lambda = diag(\lambda_1, \lambda_2, ..., \lambda_p)  $$$$ eigenvectors = \Gamma = diag(e_1, e_2, ..., e_p)  $$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>get_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>eigenValue<span class="p">,</span> eigenVector<span class="p">){</span>
-  
-  calc_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> eigenVector<span class="o">%*%</span><span class="kp">diag</span><span class="p">((</span>eigenValue<span class="o">^</span>x<span class="p">))</span><span class="o">%*%</span><span class="kp">t</span><span class="p">(</span>eigenVector<span class="p">)</span>
-<span class="p">}</span>
-
-power_of_matrix <span class="o">=</span> get_power<span class="p">(</span>eigenValue<span class="p">,</span> eigenVector<span class="p">)</span> <span class="c1">#creating a power calculator function for given eigen values</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>power_of_matrix<span class="p">(</span><span class="m">-1</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<tbody>
-	<tr><td>-0.3749827</td><td> 0.4999839</td><td> 0.1250077</td></tr>
-	<tr><td> 0.4999839</td><td>-1.0000137</td><td> 0.4999839</td></tr>
-	<tr><td> 0.1250077</td><td> 0.4999839</td><td>-0.3749827</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>power_of_matrix<span class="p">(</span><span class="m">2</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<tbody>
-	<tr><td>13.999471</td><td>9.999818 </td><td> 9.999548</td></tr>
-	<tr><td> 9.999818</td><td>9.000057 </td><td> 9.999818</td></tr>
-	<tr><td> 9.999548</td><td>9.999818 </td><td>13.999471</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="5.-Matrix-Power-Function">5. Matrix Power Function<a class="anchor-link" href="#5.-Matrix-Power-Function">&#182;</a></h1><p>Now, i will put it all together and create a function. However, it is written by educational purposes only. It has some flaws. For example, it only searches eigen values between -20 and 20.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>matrix_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>A<span class="p">,</span> pow<span class="p">){</span>
-    
-  <span class="kr">if</span><span class="p">(</span><span class="kp">det</span><span class="p">(</span>A<span class="p">)</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="kr">return</span><span class="p">(</span><span class="s">&quot;singular&quot;</span><span class="p">)</span>
-  
-  get_eigen_value <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>M<span class="p">){</span>
-    
-    eig_calc <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
-      B <span class="o">=</span> <span class="kp">diag</span><span class="p">(</span><span class="kp">rep</span><span class="p">(</span>x<span class="p">,</span> <span class="p">(</span><span class="kp">dim</span><span class="p">(</span>M<span class="p">)[</span><span class="m">1</span><span class="p">])))</span>
-      <span class="kp">det</span><span class="p">((</span>M<span class="o">-</span>B<span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span>colVars_loop <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
+    <span class="c1">#column means by for loop</span>
+    p <span class="o">=</span> <span class="kp">dim</span><span class="p">(</span>x<span class="p">)[</span><span class="m">2</span><span class="p">]</span>
+    S <span class="o">=</span> <span class="kp">diag</span><span class="p">(</span><span class="kp">apply</span><span class="p">(</span>x<span class="p">,</span> <span class="m">2</span><span class="p">,</span> var<span class="p">))</span> <span class="c1">#diagonal is equal to column variance of x in var-cov matrix</span>
+        
+    <span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="p">(</span>p<span class="m">-1</span><span class="p">)){</span>        
+             
+        <span class="kr">for</span><span class="p">(</span>j <span class="kr">in</span> <span class="p">(</span>i<span class="m">+1</span><span class="p">)</span><span class="o">:</span>p<span class="p">){</span>
+            
+            S<span class="p">[</span>i<span class="p">,</span> j<span class="p">]</span> <span class="o">=</span> S<span class="p">[</span>j<span class="p">,</span> i<span class="p">]</span> <span class="o">=</span> cov<span class="p">(</span>x<span class="p">[,</span> i<span class="p">],</span> x<span class="p">[,</span> j<span class="p">])</span> <span class="c1">#Cov(X1, X2) = Cov(X2, X1)</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
-  
-  f <span class="o">=</span> <span class="kp">Vectorize</span><span class="p">(</span>get_eigen_value<span class="p">(</span>A<span class="p">))</span>
-  eigenValue <span class="o">=</span> uniroot.all<span class="p">(</span>f<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">-20</span><span class="p">,</span> <span class="m">20</span><span class="p">))</span>
-  
-  get_eigen_vector <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>lambda<span class="p">){</span>
-    
-    eigen_solver <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
-      A<span class="o">%*%</span>x<span class="o">-</span>lambda<span class="o">*</span>x
-    <span class="p">}</span>
-    
-    initial <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="kp">dim</span><span class="p">(</span>A<span class="p">)[</span><span class="m">1</span><span class="p">])</span>
-    
-    ev <span class="o">=</span> multiroot<span class="p">(</span>eigen_solver<span class="p">,</span> initial<span class="p">)</span><span class="o">$</span>root
-    ev <span class="o">=</span> <span class="kp">round</span><span class="p">(</span>ev<span class="o">/</span><span class="kp">sqrt</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>ev<span class="o">^</span><span class="m">2</span><span class="p">)),</span> <span class="m">4</span><span class="p">)</span>
-    
-  <span class="p">}</span>
-  
-  eigenVector <span class="o">=</span> <span class="kp">cbind</span><span class="p">(</span><span class="kp">sapply</span><span class="p">(</span>eigenValue<span class="p">,</span> get_eigen_vector<span class="p">))</span>
-  
-  get_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>eigenValue<span class="p">,</span> eigenVector<span class="p">){</span>
-  
-     calc_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> eigenVector<span class="o">%*%</span><span class="kp">diag</span><span class="p">((</span>eigenValue<span class="o">^</span>x<span class="p">))</span><span class="o">%*%</span><span class="kp">t</span><span class="p">(</span>eigenVector<span class="p">)</span>
+    <span class="kr">return</span><span class="p">(</span>S<span class="p">)</span>
 <span class="p">}</span>
-  
-  power_of_matrix <span class="o">=</span> get_power<span class="p">(</span>eigenValue<span class="p">,</span> eigenVector<span class="p">)</span>
-      
-  pow <span class="o">=</span> <span class="kp">round</span><span class="p">(</span>power_of_matrix<span class="p">(</span>pow<span class="p">),</span><span class="m">4</span><span class="p">)</span>
+
+colVars_matrix <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
+    <span class="c1">#column means by matrix multiplication</span>
+    n <span class="o">=</span> <span class="kp">dim</span><span class="p">(</span>x<span class="p">)[</span><span class="m">1</span><span class="p">]</span>
+    n1 <span class="o">=</span> <span class="kt">matrix</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> n<span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c1">#n dimentional 1 vector</span>
     
-  <span class="kr">return</span><span class="p">(</span><span class="kt">list</span><span class="p">(</span>eigenvalues <span class="o">=</span> <span class="kp">round</span><span class="p">(</span>eigenValue<span class="p">,</span><span class="m">4</span><span class="p">),</span> eigenvectors <span class="o">=</span> eigenVector<span class="p">,</span> power <span class="o">=</span> pow<span class="p">))</span>
+    S <span class="o">=</span> <span class="p">(</span><span class="m">1</span><span class="o">/</span>n<span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kp">t</span><span class="p">(</span>x<span class="p">)</span><span class="o">%*%</span>x <span class="o">-</span> <span class="p">(</span><span class="m">1</span><span class="o">/</span>n<span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kp">t</span><span class="p">(</span>x<span class="p">)</span><span class="o">%*%</span>n1<span class="o">%*%</span><span class="kp">t</span><span class="p">(</span>n1<span class="p">)</span><span class="o">%*%</span>x<span class="p">))</span>
+    
+    <span class="kr">return</span><span class="p">(</span>S<span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -12196,12 +12049,14 @@ power_of_matrix <span class="o">=</span> get_power<span class="p">(</span>eigenV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">set.seed</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
-B <span class="o">=</span> <span class="kt">matrix</span><span class="p">(</span>rnorm<span class="p">(</span><span class="m">16</span><span class="p">),</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
-matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span>time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span>
+vars1 <span class="o">=</span> colVars_loop<span class="p">(</span>X<span class="p">)</span>
+time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span> <span class="o">-</span> time_for
+<span class="kp">print</span><span class="p">(</span>time_for<span class="p">)</span>
+<span class="kp">print</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>vars1<span class="p">[</span><span class="m">291</span><span class="o">:</span><span class="m">300</span><span class="p">,</span> <span class="m">291</span><span class="o">:</span><span class="m">300</span><span class="p">],</span> <span class="m">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12215,41 +12070,22 @@ matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">2<
 <div class="output_area">
 <div class="prompt"></div>
 
-
-<div class="output_html rendered_html output_subarea ">
-<dl>
-	<dt>$eigenvalues</dt>
-		<dd><ol class=list-inline>
-	<li>-3.7614</li>
-	<li>-0.5839</li>
-	<li>0.0111</li>
-	<li>1.6762</li>
-</ol>
-</dd>
-	<dt>$eigenvectors</dt>
-		<dd><table>
-<tbody>
-	<tr><td>-0.4524</td><td> 0.6683</td><td>-0.4178</td><td>-0.6084</td></tr>
-	<tr><td>-0.1526</td><td>-0.6621</td><td> 0.8955</td><td> 0.0144</td></tr>
-	<tr><td> 0.5045</td><td> 0.0116</td><td>-0.1451</td><td>-0.7931</td></tr>
-	<tr><td>-0.7194</td><td>-0.3389</td><td> 0.0496</td><td>-0.0236</td></tr>
-</tbody>
-</table>
-</dd>
-	<dt>$power</dt>
-		<dd><table>
-<tbody>
-	<tr><td> 4.0879</td><td> 0.8012</td><td>-1.8708</td><td> 4.5677</td></tr>
-	<tr><td> 0.8012</td><td> 0.4796</td><td>-1.1239</td><td> 1.6287</td></tr>
-	<tr><td>-1.8708</td><td>-1.1239</td><td> 5.3683</td><td>-5.0836</td></tr>
-	<tr><td> 4.5677</td><td> 1.6287</td><td>-5.0836</td><td> 7.3629</td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>   user  system elapsed 
+  3.884   0.000   3.885 
+       [,1]  [,2]  [,3]  [,4]  [,5]   [,6]  [,7]  [,8]  [,9] [,10]
+ [1,] 89.12  0.70  0.47 -0.50 -0.07   0.68  1.11 -0.21  0.13  0.02
+ [2,]  0.70  2.54  0.05  0.02  0.34   0.26  0.07  0.09  0.14 -0.03
+ [3,]  0.47  0.05  2.45 -0.10  0.30   0.01 -0.06  0.11  0.04  0.03
+ [4,] -0.50  0.02 -0.10  9.91 -0.59   0.18  0.21 -0.25  0.16 -0.29
+ [5,] -0.07  0.34  0.30 -0.59 51.77  -3.84  1.03  0.04  0.88 -1.07
+ [6,]  0.68  0.26  0.01  0.18 -3.84 101.84  0.01  0.63 -0.24 -0.25
+ [7,]  1.11  0.07 -0.06  0.21  1.03   0.01 13.39  0.56  0.09  0.08
+ [8,] -0.21  0.09  0.11 -0.25  0.04   0.63  0.56 21.33  0.09  0.16
+ [9,]  0.13  0.14  0.04  0.16  0.88  -0.24  0.09  0.09  6.89 -0.22
+[10,]  0.02 -0.03  0.03 -0.29 -1.07  -0.25  0.08  0.16 -0.22 20.09
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -12258,10 +12094,14 @@ matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">2<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">-1</span><span class="p">)</span> <span class="c1">#inverse of the matrix</span>
+<div class=" highlight hl-r"><pre><span></span>time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span>
+vars2 <span class="o">=</span> colVars_matrix<span class="p">(</span>X<span class="p">)</span>
+time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span> <span class="o">-</span> time_matrix
+<span class="kp">print</span><span class="p">(</span>time_matrix<span class="p">)</span>
+<span class="kp">print</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>vars2<span class="p">[</span><span class="m">291</span><span class="o">:</span><span class="m">300</span><span class="p">,</span> <span class="m">291</span><span class="o">:</span><span class="m">300</span><span class="p">],</span> <span class="m">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12275,156 +12115,37 @@ matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">2<
 <div class="output_area">
 <div class="prompt"></div>
 
-
-<div class="output_html rendered_html output_subarea ">
-<dl>
-	<dt>$eigenvalues</dt>
-		<dd><ol class=list-inline>
-	<li>-3.7614</li>
-	<li>-0.5839</li>
-	<li>0.0111</li>
-	<li>1.6762</li>
-</ol>
-</dd>
-	<dt>$eigenvectors</dt>
-		<dd><table>
-<tbody>
-	<tr><td>-0.4524</td><td> 0.6683</td><td>-0.4178</td><td>-0.6084</td></tr>
-	<tr><td>-0.1526</td><td>-0.6621</td><td> 0.8955</td><td> 0.0144</td></tr>
-	<tr><td> 0.5045</td><td> 0.0116</td><td>-0.1451</td><td>-0.7931</td></tr>
-	<tr><td>-0.7194</td><td>-0.3389</td><td> 0.0496</td><td>-0.0236</td></tr>
-</tbody>
-</table>
-</dd>
-	<dt>$power</dt>
-		<dd><table>
-<tbody>
-	<tr><td> 15.0778</td><td>-32.8659</td><td>  5.7796</td><td>-1.5511 </td></tr>
-	<tr><td>-32.8659</td><td> 71.2608</td><td>-11.6424</td><td> 3.5752 </td></tr>
-	<tr><td>  5.7796</td><td>-11.6424</td><td>  2.1982</td><td>-0.5319 </td></tr>
-	<tr><td> -1.5511</td><td>  3.5752</td><td> -0.5319</td><td>-0.1130 </td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>   user  system elapsed 
+  0.200   0.004   0.205 
+       [,1]  [,2]  [,3]  [,4]  [,5]   [,6]  [,7]  [,8]  [,9] [,10]
+ [1,] 89.06  0.70  0.47 -0.50 -0.07   0.68  1.11 -0.21  0.13  0.02
+ [2,]  0.70  2.54  0.05  0.02  0.33   0.26  0.07  0.09  0.14 -0.03
+ [3,]  0.47  0.05  2.45 -0.10  0.30   0.01 -0.06  0.11  0.04  0.03
+ [4,] -0.50  0.02 -0.10  9.90 -0.59   0.18  0.20 -0.25  0.16 -0.29
+ [5,] -0.07  0.33  0.30 -0.59 51.74  -3.84  1.03  0.04  0.88 -1.07
+ [6,]  0.68  0.26  0.01  0.18 -3.84 101.77  0.01  0.63 -0.24 -0.25
+ [7,]  1.11  0.07 -0.06  0.20  1.03   0.01 13.38  0.56  0.09  0.08
+ [8,] -0.21  0.09  0.11 -0.25  0.04   0.63  0.56 21.32  0.09  0.16
+ [9,]  0.13  0.14  0.04  0.16  0.88  -0.24  0.09  0.09  6.88 -0.22
+[10,]  0.02 -0.03  0.03 -0.29 -1.07  -0.25  0.08  0.16 -0.22 20.08
+</pre>
 </div>
-
 </div>
 
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>C <span class="o">=</span> <span class="kp">cbind</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">),</span>
-          <span class="kt">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">))</span>
-matrix_power<span class="p">(</span>C<span class="p">,</span> <span class="m">1</span><span class="o">/</span><span class="m">2</span><span class="p">)</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Same result but elapsed times are significantly different. Firstly, to calculate covariance we used nested loops. They increased the time O(n<sup>2</sup>). However in matrix multiplication we are still using linear operations. Therefore we obtain the result much faster than nested loops.</p>
 
 </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-<div class="output_html rendered_html output_subarea ">
-<dl>
-	<dt>$eigenvalues</dt>
-		<dd><ol class=list-inline>
-	<li>1</li>
-	<li>9</li>
-</ol>
-</dd>
-	<dt>$eigenvectors</dt>
-		<dd><table>
-<tbody>
-	<tr><td>-0.7071</td><td>0.7071 </td></tr>
-	<tr><td> 0.7071</td><td>0.7071 </td></tr>
-</tbody>
-</table>
-</dd>
-	<dt>$power</dt>
-		<dd><table>
-<tbody>
-	<tr><td>2</td><td>1</td></tr>
-	<tr><td>1</td><td>2</td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>matrix_power<span class="p">(</span>C<span class="p">,</span> <span class="m">2</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-<div class="output_html rendered_html output_subarea ">
-<dl>
-	<dt>$eigenvalues</dt>
-		<dd><ol class=list-inline>
-	<li>1</li>
-	<li>9</li>
-</ol>
-</dd>
-	<dt>$eigenvectors</dt>
-		<dd><table>
-<tbody>
-	<tr><td>-0.7071</td><td>0.7071 </td></tr>
-	<tr><td> 0.7071</td><td>0.7071 </td></tr>
-</tbody>
-</table>
-</dd>
-	<dt>$power</dt>
-		<dd><table>
-<tbody>
-	<tr><td>40.9993</td><td>39.9993</td></tr>
-	<tr><td>39.9993</td><td>40.9993</td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     </div>
   </div>
