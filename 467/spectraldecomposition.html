@@ -11795,7 +11795,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1">#install.packages(&quot;rootSolve&quot;)</span>
@@ -11803,34 +11803,6 @@ div#notebook {
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Installing package into &#39;/home/nbcommon/R&#39;
-(as &#39;lib&#39; is unspecified)
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-The downloaded source packages are in
-	&#39;/tmp/RtmpMDPUB2/downloaded_packages&#39;
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -11847,7 +11819,7 @@ The downloaded source packages are in
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>get_eigen_value <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>M<span class="p">){</span>
@@ -11866,7 +11838,7 @@ The downloaded source packages are in
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1">#An example matrix</span>
@@ -11892,7 +11864,7 @@ A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>f <span class="o">=</span> <span class="kp">Vectorize</span><span class="p">(</span>get_eigen_value<span class="p">(</span>A<span class="p">))</span> <span class="c1">#vectorization for uniroot function</span>
@@ -11905,7 +11877,7 @@ A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>eigenValue <span class="o">=</span> uniroot.all<span class="p">(</span>f<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span> <span class="m">10</span><span class="p">))</span>
@@ -11918,7 +11890,7 @@ A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span>eigenValue<span class="p">)</span>
@@ -11957,7 +11929,7 @@ A <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>get_eigen_vector <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>lambda<span class="p">){</span>
@@ -11983,7 +11955,7 @@ eigenVector <span class="o">=</span> <span class="kp">cbind</span><span class="p
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>eigenVector
@@ -12041,7 +12013,7 @@ $$ eigenvalues = \Lambda = diag(\lambda_1, \lambda_2, ..., \lambda_p)  $$$$ eige
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>get_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>eigenValue<span class="p">,</span> eigenVector<span class="p">){</span>
@@ -12059,7 +12031,7 @@ power_of_matrix <span class="o">=</span> get_power<span class="p">(</span>eigenV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>power_of_matrix<span class="p">(</span><span class="m">-1</span><span class="p">)</span>
@@ -12143,7 +12115,7 @@ power_of_matrix <span class="o">=</span> get_power<span class="p">(</span>eigenV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>matrix_power <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>A<span class="p">,</span> pow<span class="p">){</span>
@@ -12196,7 +12168,7 @@ power_of_matrix <span class="o">=</span> get_power<span class="p">(</span>eigenV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">set.seed</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
@@ -12258,7 +12230,7 @@ matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">2<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">-1</span><span class="p">)</span> <span class="c1">#inverse of the matrix</span>
@@ -12318,7 +12290,7 @@ matrix_power<span class="p">(</span>B<span class="p">,</span> <span class="m">2<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>C <span class="o">=</span> <span class="kp">cbind</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">),</span>
@@ -12374,7 +12346,7 @@ matrix_power<span class="p">(</span>C<span class="p">,</span> <span class="m">1<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>matrix_power<span class="p">(</span>C<span class="p">,</span> <span class="m">2</span><span class="p">)</span>
