@@ -11943,7 +11943,7 @@ time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  0.012   0.000   0.011 
+  0.004   0.008   0.011 
  [1] -0.04  0.81  1.89  3.06  4.07  5.06  6.11  7.00  7.80  9.09
 </pre>
 </div>
@@ -12013,7 +12013,7 @@ $$ S_n = \frac{1}{n} \bigl(X^TX-\frac{1}{n}X^T1_n1_n^TX\bigr) \tag{2} $$<p>Now l
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>colVars_loop <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>
@@ -12049,7 +12049,7 @@ colVars_matrix <span class="o">=</span> <span class="kr">function</span><span cl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span>
@@ -12072,7 +12072,7 @@ time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  3.884   0.000   3.885 
+  4.204   0.004   4.212 
        [,1]  [,2]  [,3]  [,4]  [,5]   [,6]  [,7]  [,8]  [,9] [,10]
  [1,] 89.12  0.70  0.47 -0.50 -0.07   0.68  1.11 -0.21  0.13  0.02
  [2,]  0.70  2.54  0.05  0.02  0.34   0.26  0.07  0.09  0.14 -0.03
@@ -12094,7 +12094,7 @@ time_for <span class="o">=</span> <span class="kp">proc.time</span><span class="
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span class="p">()</span>
@@ -12117,7 +12117,7 @@ time_matrix <span class="o">=</span> <span class="kp">proc.time</span><span clas
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>   user  system elapsed 
-  0.200   0.004   0.205 
+  0.208   0.000   0.207 
        [,1]  [,2]  [,3]  [,4]  [,5]   [,6]  [,7]  [,8]  [,9] [,10]
  [1,] 89.06  0.70  0.47 -0.50 -0.07   0.68  1.11 -0.21  0.13  0.02
  [2,]  0.70  2.54  0.05  0.02  0.33   0.26  0.07  0.09  0.14 -0.03
