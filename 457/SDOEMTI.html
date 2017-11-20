@@ -11932,8 +11932,8 @@ apply CRD</p>
 <div class=" highlight hl-r"><pre><span></span>Trt1 <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">113</span><span class="p">,</span> <span class="m">118</span><span class="p">,</span> <span class="m">126</span><span class="p">,</span> <span class="m">121</span><span class="p">,</span> <span class="m">111</span><span class="p">,</span> <span class="m">119</span><span class="p">)</span>
 Trt2 <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">110</span><span class="p">,</span> <span class="m">116</span><span class="p">,</span> <span class="m">110</span><span class="p">,</span> <span class="m">121</span><span class="p">,</span> <span class="m">117</span><span class="p">,</span> <span class="m">110</span><span class="p">)</span>
 v <span class="o">=</span> <span class="m">2</span>
-n <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span>
-N <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>n<span class="p">)</span>
+n <span class="o">=</span> <span class="m">6</span>
+N <span class="o">=</span> v<span class="o">*</span>n
 alpha <span class="o">=</span> <span class="m">0.05</span>
 </pre></div>
 
@@ -11947,39 +11947,48 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>get_CF <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>X_list<span class="p">){</span>
-    
-    X_list <span class="o">=</span> <span class="kp">unlist</span><span class="p">(</span>X_list<span class="p">)</span>    
-    CF <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>X_list<span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span>N
-    <span class="kr">return</span><span class="p">(</span>CF<span class="p">)</span>
-    
-<span class="p">}</span> 
-
-get_SSfac <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>X_list<span class="p">,</span> CF<span class="p">){</span>
-    
-    SS <span class="o">=</span> <span class="m">0</span>
-    
-    <span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>v<span class="p">){</span>
-        SS <span class="o">=</span> SS <span class="o">+</span> <span class="kp">sum</span><span class="p">(</span>X_list<span class="p">[[</span>i<span class="p">]])</span><span class="o">^</span><span class="m">2</span><span class="o">/</span>n<span class="p">[</span>i<span class="p">]</span>
-    <span class="p">}</span>
-    
-    SSfac <span class="o">=</span> SS <span class="o">-</span> CF 
-    <span class="kr">return</span><span class="p">(</span>SSfac<span class="p">)</span>
-<span class="p">}</span>
-    
-get_SSt <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>X_list<span class="p">,</span> CF<span class="p">){</span>
-    
-    SS <span class="o">=</span> <span class="m">0</span>
-    
-    X_list <span class="o">=</span> <span class="kp">unlist</span><span class="p">(</span>X_list<span class="p">)</span>
-    SS <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>X_list<span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-    SSt <span class="o">=</span> SS <span class="o">-</span> CF 
-    <span class="kr">return</span><span class="p">(</span>SSt<span class="p">)</span>
-<span class="p">}</span>
+<div class=" highlight hl-r"><pre><span></span>X <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>Treatments <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Music&quot;</span><span class="p">,</span> <span class="s">&quot;NoMusic&quot;</span><span class="p">),</span> each <span class="o">=</span> <span class="m">6</span><span class="p">),</span>
+               Measurements <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>Trt1<span class="p">,</span> Trt2<span class="p">))</span>
+X
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th scope=col>Treatments</th><th scope=col>Measurements</th></tr></thead>
+<tbody>
+	<tr><td>Music  </td><td>113    </td></tr>
+	<tr><td>Music  </td><td>118    </td></tr>
+	<tr><td>Music  </td><td>126    </td></tr>
+	<tr><td>Music  </td><td>121    </td></tr>
+	<tr><td>Music  </td><td>111    </td></tr>
+	<tr><td>Music  </td><td>119    </td></tr>
+	<tr><td>NoMusic</td><td>110    </td></tr>
+	<tr><td>NoMusic</td><td>116    </td></tr>
+	<tr><td>NoMusic</td><td>110    </td></tr>
+	<tr><td>NoMusic</td><td>121    </td></tr>
+	<tr><td>NoMusic</td><td>117    </td></tr>
+	<tr><td>NoMusic</td><td>110    </td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -11989,7 +11998,8 @@ get_SSt <span class="o">=</span> <span class="kr">function</span><span class="p"
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>CF <span class="o">=</span> get_CF<span class="p">(</span><span class="kt">list</span><span class="p">(</span>x1 <span class="o">=</span> Trt1<span class="p">,</span> x2 <span class="o">=</span> Trt2<span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span>CF <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>X<span class="o">$</span>Measurements<span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span>N
+Ti <span class="o">=</span> aggregate<span class="p">(</span>X<span class="o">$</span>Measurements<span class="p">,</span> <span class="kt">list</span><span class="p">(</span>X<span class="o">$</span>Treatments<span class="p">),</span> <span class="kp">sum</span><span class="p">)[,</span><span class="m">2</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -12002,9 +12012,9 @@ get_SSt <span class="o">=</span> <span class="kr">function</span><span class="p"
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>SSt <span class="o">=</span> get_SSt<span class="p">(</span><span class="kt">list</span><span class="p">(</span>x1 <span class="o">=</span> Trt1<span class="p">,</span> x2 <span class="o">=</span> Trt2<span class="p">),</span> CF<span class="p">)</span>
-SStr <span class="o">=</span> get_SSfac<span class="p">(</span><span class="kt">list</span><span class="p">(</span>x1 <span class="o">=</span> Trt1<span class="p">,</span> x2 <span class="o">=</span> Trt2<span class="p">),</span> CF<span class="p">)</span>
-SSe <span class="o">=</span> SSt <span class="o">-</span> SStr
+<div class=" highlight hl-r"><pre><span></span>SST <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>X<span class="o">$</span>Measurements<span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="o">-</span>CF
+SSTr <span class="o">=</span> <span class="p">(</span><span class="m">1</span><span class="o">/</span>n<span class="p">)</span><span class="o">*</span><span class="kp">sum</span><span class="p">(</span>Ti<span class="o">^</span><span class="m">2</span><span class="p">)</span> <span class="o">-</span> CF
+SSe <span class="o">=</span> SST <span class="o">-</span> SSTr
 
 dft <span class="o">=</span> N <span class="o">-</span> <span class="m">1</span>
 dftr <span class="o">=</span> v <span class="o">-</span> <span class="m">1</span>
@@ -12021,7 +12031,7 @@ dfe <span class="o">=</span> dft <span class="o">-</span> dftr
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>MStr <span class="o">=</span> SStr<span class="o">/</span>dftr
+<div class=" highlight hl-r"><pre><span></span>MStr <span class="o">=</span> SSTr<span class="o">/</span>dftr
 MSe <span class="o">=</span> SSe<span class="o">/</span>dfe
 
 Fstatistic <span class="o">=</span> MStr<span class="o">/</span>MSe
@@ -12077,7 +12087,7 @@ Fstatistic <span class="o">=</span> MStr<span class="o">/</span>MSe
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>d12 <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Trt1<span class="p">)</span> <span class="o">-</span> <span class="kp">mean</span><span class="p">(</span>Trt2<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span>alpha <span class="o">=</span> <span class="m">0.1</span>
 </pre></div>
 
 </div>
@@ -12090,7 +12100,7 @@ Fstatistic <span class="o">=</span> MStr<span class="o">/</span>MSe
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>alpha <span class="o">=</span> <span class="m">0.1</span>
+<div class=" highlight hl-r"><pre><span></span>d12 <span class="o">=</span> <span class="kp">diff</span><span class="p">(</span>aggregate<span class="p">(</span>X<span class="o">$</span>Measurements<span class="p">,</span> <span class="kt">list</span><span class="p">(</span>X<span class="o">$</span>Treatments<span class="p">),</span> <span class="kp">mean</span><span class="p">)[,</span><span class="m">2</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -12103,8 +12113,21 @@ Fstatistic <span class="o">=</span> MStr<span class="o">/</span>MSe
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>UpperB <span class="o">=</span> d12 <span class="o">+</span> qt<span class="p">(</span><span class="m">1</span><span class="o">-</span>alpha<span class="o">/</span><span class="m">2</span><span class="p">,</span> N <span class="o">-</span> v<span class="p">)</span><span class="o">*</span><span class="kp">sqrt</span><span class="p">(((</span><span class="m">1</span><span class="o">/</span>n<span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="m">1</span><span class="o">/</span>n<span class="p">[</span><span class="m">2</span><span class="p">]))</span><span class="o">*</span>MSe<span class="p">)</span>
-LowerB <span class="o">=</span> d12 <span class="o">+</span> qt<span class="p">(</span>alpha<span class="o">/</span><span class="m">2</span><span class="p">,</span> N <span class="o">-</span> v<span class="p">)</span><span class="o">*</span><span class="kp">sqrt</span><span class="p">(((</span><span class="m">1</span><span class="o">/</span>n<span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="m">1</span><span class="o">/</span>n<span class="p">[</span><span class="m">2</span><span class="p">]))</span><span class="o">*</span>MSe<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span>LSD <span class="o">=</span> qt<span class="p">(</span><span class="m">1</span><span class="o">-</span>alpha<span class="o">/</span><span class="m">2</span><span class="p">,</span> N <span class="o">-</span> v<span class="p">)</span><span class="o">*</span><span class="kp">sqrt</span><span class="p">((</span><span class="m">2</span><span class="o">/</span>n<span class="p">)</span><span class="o">*</span>MSe<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>UpperB <span class="o">=</span> d12 <span class="o">+</span> LSD
+LowerB <span class="o">=</span> d12 <span class="o">-</span> LSD
 <span class="kt">c</span><span class="p">(</span>LowerB<span class="p">,</span> UpperB<span class="p">)</span>
 </pre></div>
 
@@ -12124,8 +12147,8 @@ LowerB <span class="o">=</span> d12 <span class="o">+</span> qt<span class="p">(
 
 <div class="output_html rendered_html output_subarea ">
 <ol class=list-inline>
-	<li>-1.31517937295181</li>
-	<li>9.3151793729518</li>
+	<li>-9.3151793729518</li>
+	<li>1.3151793729518</li>
 </ol>
 
 </div>
@@ -12240,7 +12263,7 @@ Reject $H_0$ if $F_{TSbl} &gt; F_{\alpha, b-1, (b-1)(v-1)}$</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>Brands <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>brand1 <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">96</span><span class="p">,</span> <span class="m">92</span><span class="p">,</span> <span class="m">96</span><span class="p">,</span> <span class="m">92</span><span class="p">),</span>
@@ -12285,7 +12308,7 @@ Brands
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>v <span class="o">=</span> <span class="m">3</span>
@@ -12319,7 +12342,7 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>Brands<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>b<span class="o">*</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">[</span><span class="m">3</span><span class="p">,],</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">))</span> <span class="o">+</span> v<span class="o">*</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">[,</span><span class="m">3</span><span class="p">],</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">,</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">)))</span> <span class="o">/</span> <span class="p">((</span>v<span class="m">-1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span>b<span class="m">-1</span><span class="p">))</span>
@@ -12332,7 +12355,7 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="p">(</span>b<span class="o">*</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">[</span><span class="m">3</span><span class="p">,],</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">))</span> <span class="o">+</span> v<span class="o">*</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">[,</span><span class="m">3</span><span class="p">],</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">,</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">)))</span> <span class="o">/</span> <span class="p">((</span>v<span class="m">-1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span>b<span class="m">-1</span><span class="p">))</span>
@@ -12364,7 +12387,7 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="p">(</span>b<span class="o">*</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">[</span><span class="m">3</span><span class="p">,],</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">))</span> <span class="o">+</span> v<span class="o">*</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">[,</span><span class="m">3</span><span class="p">],</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="kp">sum</span><span class="p">(</span>Brands<span class="p">,</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">)))</span>
@@ -12396,7 +12419,7 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>X <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>Brands <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>Brands<span class="p">),</span> each <span class="o">=</span> <span class="m">5</span> <span class="p">),</span>
@@ -12411,7 +12434,7 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>X
@@ -12463,7 +12486,7 @@ alpha <span class="o">=</span> <span class="m">0.05</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>CF <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>X<span class="o">$</span>Weeks<span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span>N
@@ -12478,7 +12501,7 @@ bl <span class="o">=</span> aggregate<span class="p">(</span>X<span class="o">$<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>SST <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>X<span class="o">$</span>Weeks<span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="o">-</span>CF
@@ -12502,7 +12525,7 @@ dfe <span class="o">=</span> dft <span class="o">-</span> dftr <span class="o">-
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>MStr <span class="o">=</span> SStr<span class="o">/</span>dftr
+<div class=" highlight hl-r"><pre><span></span>MStr <span class="o">=</span> SSTr<span class="o">/</span>dftr
 MSbl <span class="o">=</span> SSbl<span class="o">/</span>dfbl
 MSe <span class="o">=</span> SSe<span class="o">/</span>dfe
 
@@ -12551,7 +12574,7 @@ Fbl <span class="o">=</span> MSbl<span class="o">/</span>MSe
 
 
 <div class="output_html rendered_html output_subarea ">
-'failed to reject H0'
+'reject H0'
 </div>
 
 </div>
