@@ -12156,10 +12156,10 @@ NG<span class="p">(</span>f2<span class="p">,</span> <span class="kt">c</span><s
 
     <span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>iter<span class="p">){</span>
         
-        GradTheta <span class="o">=</span> NG<span class="p">(</span>Lik_BVN_fixed<span class="p">,</span> Theta<span class="p">)</span>        
+        GradTheta <span class="o">=</span> NG<span class="p">(</span>f<span class="p">,</span> Theta<span class="p">)</span>        
         Theta <span class="o">=</span> Theta <span class="o">+</span> lr<span class="o">*</span>GradTheta
         Theta_M <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span>Theta_M<span class="p">,</span> Theta<span class="p">)</span>
-        LIK<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Lik_BVN_fixed<span class="p">(</span>Theta<span class="p">)</span>
+        LIK<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> f<span class="p">(</span>Theta<span class="p">)</span>
         
         <span class="kr">if</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span><span class="kp">max</span><span class="p">(</span><span class="kp">abs</span><span class="p">(</span>GradTheta<span class="p">)),</span> dec<span class="p">)</span> <span class="o">==</span> <span class="m">0</span><span class="p">){</span>
             
