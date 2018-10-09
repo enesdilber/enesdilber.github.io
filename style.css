@@ -14,12 +14,12 @@ body { margin: 0;
 h1 { font-weight: 300;
      margin: 5px 0 0;
      font-size: 40px;
-     color:#ba0018;
+     color:#00007a;
      padding: 0 10px 10px;
      border-radius:2px;
     font-family: 'Merriweather', serif;
 }
-h2 { color: #ba0018;
+h2 { color: #00007a;
      width: 150px;
      font-size: 18px;
      padding-left: 20px;
@@ -34,7 +34,7 @@ h3 { font-size: 18px;
      font-family: 'Merriweather', serif;
 }
 h2, h3 { margin-top: 5px }
-a { color: #ba0018;
+a { color: #00007a;
     display: inline-block;
     text-decoration: none;
     padding:2px 4px;
@@ -42,7 +42,7 @@ a { color: #ba0018;
     margin-right:-2px;
 }
 a:hover {
-  background-color:#ba0018;
+  background-color:#00007a;
   color:#fff;
 }
 .key:first-child { margin-left: 0 }
