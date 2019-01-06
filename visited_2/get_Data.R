@@ -41,7 +41,7 @@ for(i in 1:length(Name)){
   message("\nImage saved")
   #############################################
   Description = get_wiki_Descr(wiki_html, url, name)
-  Description = paste0(Description, "<br><img src = ", savedimage, "><br>")
+  Description = paste0(Description, '<br><img src = "', savedimage, '"><br>')
   
   if(places$isvisited[i]){
     my_photos = paste0("input/my_photos/", list.files("input/my_photos/", name))
