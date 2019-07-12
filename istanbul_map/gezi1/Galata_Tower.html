@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<title>Galata Tower</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("Galata_Tower_home.jpg");
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+</style>
+<body>
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:90px; text-shadow: 0px 0px 32px #000000">galata<br>tower</span>
+  </div>
+</header>
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-large">
+
+
+<!-- About Container -->
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide"><a href="https://en.wikipedia.org/wiki/Galata_Tower" target="_blank">Wikipedia</a>
+</span></h5>
+    <p>The Galata Tower (Galata Kulesi in Turkish) — called Christea Turris (the Tower of Christ in Latin) by the Genoese — is a medieval stone tower in the Galata/Karaköy quarter of Istanbul, Turkey, just to the north of the Golden Horn's junction with the Bosphorus. It is a high, cone-capped cylinder that dominates the skyline and offers a panoramic vista of Istanbul's historic peninsula and its environs.</p>
+  </div>
+</div>
+
+
+<!-- Contact/Area Container -->
+<div class="w3-container" id="where" style="padding-bottom:32px;">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Strolling Through Istanbul</span></h5>
+
+    <p>We now continue on down Galip Dede Caddesi for about 250 metres until we see on our right the huge Galata Tower. This tower was the apex of the Genoese fortifications of medieval Galata. Originally known as the Tower of Christ, it was built in 1348 in connection with the first expansion of the Genoese colony. The first fortified area, built as early as 1304, was a long narrow rectangle along the Golden Horn between where the two bridges now stand. In order to defend themselves more adequately on the side of the heights above Galata, the Genoese then added a triangular wedge with the Tower of Christ at its highest point. Later still, in 1387 and 1397, they took in successive areas to the north-west, and finally in 1446 they enclosed the eastern slope of the hill leading down to the Bosphorus. The final defence system consisted of six walled encientes, with the outer wall bordered by a moat, a short stretch of which can still be seen beside the Tower. Bits and pieces of the defence walls and towers still exist here and there around Galata, but none of them amounts to very much. The Galata Tower has been restored and there is now a modern restaurant and café on its upper levels. From the observation deck on the uppermost level one has a magnificent view out over the entire city and its surrounding waters.</p>
+
+    <p>In the little square beside the Tower, fixed against the remnants of the barbican, is a famous street fountain. In its present form it dates from 1732, but it was originally constructed by Bereketzade Hacı Ali Ağa, first Turkish governor of the citadel of Galata; it still bears his patronymic. It was moved to its present position in 1950 from Bereketzade’s mosque a short distance away when the latter was destroyed. Unfortunately, this charming rococo fountain has suffered badly from being painted.</p>
+
+    <p>Behind the tower a steep and winding street, Galata Kulesi Sokağı, leads downhill towards the Golden Horn. Not far down on the left we see the queer folly-like tower that looks so extra ordinary when viewed from the two bridges; it is merely an example of Art Nouveau and belongs to the Istanbul Hospital.</p>
+
+  </div>
+</div>
+
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
+
+</body>
+</html>
