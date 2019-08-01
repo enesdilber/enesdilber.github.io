@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<title>Church of Saint Mary of the Mongols
+</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("mongols_home.jpg");
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+</style>
+<body>
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:70px; text-shadow:2px 2px 0 #444">Church of<br>Saint Mary of<br>the Mongols</span>
+  </div>
+</header>
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-large">
+
+
+<!-- About Container -->
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide"><a href="https://en.wikipedia.org/wiki/Church_of_Saint_Mary_of_the_Mongols" target="_blank">Wikipedia</a>
+</span></h5>
+    <p>Saint Mary of the Mongols (full name in Greek: Θεοτόκος Παναγιώτισσα (pr. Theotókos Panaghiótissa, lit. "All-Holy Theotokos") or Παναγία Μουχλιώτισσα (pr. Panaghía Muchliótissa); Turkish name: Kanlı Kilise (meaning:Bloody Church), is an Eastern Orthodox church in Istanbul. It is the only Byzantine church of Constantinople that has never been converted to a mosque, always remaining open to the Greek Orthodox Church.</p>
+  </div>
+</div>
+
+<!-- Menu Container -->
+<div class="w3-container" id="menu">
+  <div class="w3-content" style="max-width:700px">
+ 
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Photos</span></h5>
+  
+    <div class="w3-row w3-center w3-card w3-padding">
+      <a href="javascript:void(0)" onclick="openMenu(event, '1');" id="myLink">
+        <div class="w3-col s6 tablink">Ferman</div>
+      </a>
+  
+    </div>
+
+    <div id="1" class="w3-container menu w3-padding-48 w3-card">
+    	<img src="mongols_ferman.jpg" style="width:100%;">
+    </div>
+
+  </div>
+</div>
+
+<!-- Contact/Area Container -->
+<div class="w3-container" id="where" style="padding-bottom:32px;">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Strolling Through Istanbul</span></h5>
+
+    <p>Continuing up the hill we turn left at the corner and then take the second right. We then see ahead a rose-red Byzantine church, deformed in shape and with an unusually high drum. This is the church dedicated to the Theotokos Panaghiotissa, the All-Holy Mother of God, but it is more generally called the Mouchliotissa, or St. Mary of the Mongols. This church was founded, or rebuilt, in about 1282 by the Princess Maria Palaeologina, an illegitimate daughter of the Emperor Michael VIII Palaeologus. In the year 1265 Maria was sent by her father as a bride to Hulagu, the Great Khan of the Mongols. Hulagu died before Maria arrived at the Mongol court, however, so she was married instead to his son and successor Abagu. Maria lived at the Mongol court in Persia for about 15 years, and through her influence the Khan and many of his court became Christians. But then, in 1281, Abagu was assassinated by his brother Ahmet and Maria was forced to return to Constantinople. After Maria’s return her father offered her as a bride to still another Khan of the Mongols, Charabanda, but this time she refused; perhaps she had had enough of Khans. At about this time Maria founded the church which we see today, together with a convent, and dedicated it to the Mouchliotissa, Our Lady of the Mongols. Maria, the Despoina of the Mongols, as she was known, then became a nun and spent her last years in retirement in her convent: This romantic tale appears to be only partially true, for the church seems actually to have been founded by Isaac Dukas, uncle of Michael VIII, about 1261.The Despoina of the Mongols perhaps merely added to it and gave it further adornments. After the Conquest, Sultan Mehmet II, at the request of his Greek architect Christodoulos (who may be Atik Sinan, the architect of the original Fatih Camii), issued a decree confirming the right of the local Greeks to keep this church. The Greeks remain in possession of the church to this day, and what is claimed to be Fatih’s ferman, or decree, is still displayed there. This is the only Byzantine church which has been continuously in the hands of the Greeks since before the Turkish Conquest.</p>
+
+    <p>The church was originally quatrefoil in plan internally and trefoil externally. That is, the small central dome on a high drum was surrounded by four semidomes along the axes, all but the western one resting on the outer walls of the building, which thus formed exedrae; the whole was preceded by a narthex of three bays. But the entire southern side of the church was swept away in modern times and replaced by a squarish narthex which is in every direction out of line with the original building. The effect is most disconcerting. The church is still adorned with one art treasure from its Byzantine period, a very beautiful portative mosaic of the Theotokos Pammakaristos, the All-Joyous Mother of God. The obvious similarity of this icon to those we have seen at St. Nicholas and at the patriarchal church of St. George strongly suggests that they were all done by the same artist, working in the eleventh century. These are the only three such portative mosaics remaining in the city, and there are only about ten others still known to exist elsewhere.</p>
+
+  </div>
+</div>
+
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
+
+</body>
+</html>

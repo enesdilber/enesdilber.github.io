@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<title>Phanar Greek Orthodox College
+</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("college_home.jpg");
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+</style>
+<body>
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:70px; text-shadow:2px 2px 0 #444">Phanar<br>Greek Orthodox<br>College</span>
+  </div>
+</header>
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-large">
+
+
+<!-- About Container -->
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide"><a href="https://en.wikipedia.org/wiki/Phanar_Greek_Orthodox_College" target="_blank">Wikipedia</a>
+</span></h5>
+    <p>Phanar Greek Orthodox College or Phanar Roman Orthodox Lyceum (Turkish: Özel Fener Rum Lisesi), known in Greek as the Great School of the Nation (Greek: Μεγάλη του Γένους Σχολή, Megáli toú Genous Scholí), is the oldest surviving and most prestigious Greek Orthodox school in Istanbul, Turkey.</p>
+    <p>The school, like all minority schools in Turkey, is a secular school.The current school building is located near the Church of St. George in the neighborhood of Fener (Phanar in Greek), which is the seat of the Patriarchate. It is known among the locals with nicknames such as The Red Castle and The Red School.</p>
+
+    <p>Designed by the Ottoman Greek architect Konstantinos Dimadis, the building was erected between 1881 and 1883 with an eclectic mix of different styles and at a cost of 17,210 Ottoman gold pounds, a huge sum for that period. The money was given by Georgios Zariphis, a prominent Greek Ottoman banker and financier belonging to the Rum community of Istanbul.[1] Despite its function as a school, the building is often referred to as "the 5th largest castle in Europe" because of its castle-like shape. The large dome at the top of the building is used as an observatory for astronomy classes and has a large antique telescope inside. Today the school, which is the "second largest" school after the Zografeion Lyceum, has six Turkish teachers, while the remaining fifteen are Greek.[2] The school (like all minority schools, as it is compulsory by law) applies the full Turkish curriculum in addition to Greek subjects: Greek language, literature and religion.</p>
+  </div>
+</div>
+
+
+<!-- Contact/Area Container -->
+<div class="w3-container" id="where" style="padding-bottom:32px;">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Strolling Through Istanbul</span></h5>
+
+    <p>As we leave the church we see off to our right the huge structure which dominates the skyline of this part of the city; it houses a very old and illustrious institution, the Greek Lycee of the Fener, known in Greek as the Megali Scholio, or the Great School. The present red brick building was built in 1881. But the original Megali Scholio, by tradition, was founded before the Turkish Conquest and remained the principal Greek institution of secular education throughout the course of Ottoman history. Here were educated many of the Greek voivodes (governors) and hospodars of Moldavia and Wallachia, and many of the chief interpreters who often wielded such great influence at the Sublime Porte – men with the resounding names of the Byzantine aristocracy, Palaeologus, Cantacuzenus, Cantemir, Mavrocordato and Ypsilanti.</p>
+
+  </div>
+</div>
+
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
+
+</body>
+</html>
